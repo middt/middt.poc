@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/dapr.kafka.binding.props" />
+</Project>

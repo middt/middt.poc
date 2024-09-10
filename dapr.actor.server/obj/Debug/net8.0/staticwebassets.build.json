@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "b633avGKEskhOS2l7GGl+Bt++x40hWwPNnjysn7PeEs=",
+  "Source": "dapr.actor.server",
+  "BasePath": "_content/dapr.actor.server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

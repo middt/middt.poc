@@ -1,0 +1,9 @@
+Dapr init
+Dapr loads components
+Dapr marks self as healthz/outbound true
+Dapr waits for your app to start
+Dapr loads app's configuration (actor config)
+Dapr starts to advertise actor hosting to placement service
+These next two steps can happen, unfortunately, in any order.
+Dapr marks itself as healthz true
+*******Placement service disseminates the actor host table (making addresses available)
