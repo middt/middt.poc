@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/dapr.kafka.pubsub.props" />
-</Project>

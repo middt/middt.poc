@@ -5,9 +5,9 @@
             "name": "dapr-actor-server",
             "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/dapr.actor.server/bin/Debug/net8.0/dapr.actor.server.dll",
+            "program": "${workspaceFolder}/dapr/dapr.actor.server/bin/Debug/net8.0/dapr.actor.server.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/dapr.actor.server",
+            "cwd": "${workspaceFolder}/dapr/dapr.actor.server",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
@@ -27,9 +27,9 @@
             "name": "dapr-kafka-pubsub",
             "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/dapr.kafka.pubsub/bin/Debug/net8.0/dapr.kafka.pubsub.dll",
+            "program": "${workspaceFolder}/dapr/dapr.kafka.pubsub/bin/Debug/net8.0/dapr.kafka.pubsub.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/dapr.kafka.pubsub",
+            "cwd": "${workspaceFolder}/dapr/dapr.kafka.pubsub",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
@@ -41,6 +41,29 @@
             },
             "preLaunchTask": "dapr-up-dapr-kafka-pubsub",
             "postDebugTask": "dapr-down-dapr-kafka-pubsub",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger/"
+            }
+        },
+        
+                        {
+            "name": "dapr-otel-web",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/otel/otel.web/bin/Debug/net8.0/otel.web.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/otel/otel.web",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:4400",
+                "DAPR_HTTP_PORT": "44010",
+                "DAPR_GRPC_PORT": "44011",
+            },
+            "preLaunchTask": "dapr-up-otel-web",
+            "postDebugTask": "dapr-down-otel-webb",
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)",

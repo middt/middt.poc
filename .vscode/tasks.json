@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/dapr.actor.server/dapr.actor.server.csproj",
+                "${workspaceFolder}/dapr/dapr.actor.server/dapr.actor.server.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -36,7 +36,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/dapr.kafka.pubsub/dapr.kafka.pubsub.csproj",
+                "${workspaceFolder}/dapr/dapr.kafka.pubsub/dapr.kafka.pubsub.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -55,6 +55,36 @@
         {
             "appId": "dapr-kafka-pubsub",
             "label": "dapr-down-dapr-kafka-pubsub",
+            "type": "daprd-down"
+        }
+        ,
+
+
+                {
+            "label": "build-otel-web",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/otel/otel.web/otel.web.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "appId": "dapr-otel-web",
+            "appPort": 4400,
+            "httpPort": 44010,
+            "grpcPort": 44011,
+            "label": "dapr-up-otel-web",
+            "type": "dapr",
+            "dependsOn": "build-otel-web",
+            "componentsPath": "dapr/components"
+        },
+        {
+            "appId": "dapr-otel-web",
+            "label": "dapr-down-dapr-otel-web",
             "type": "daprd-down"
         }
     ]

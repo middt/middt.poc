@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dapr.actor.server", "dapr.actor.server\dapr.actor.server.csproj", "{FC5DC977-598E-4519-A989-7972537961E4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel", "otel", "{17851C45-4E20-4E59-BB1C-C87061FD5053}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.kafka.pubsub", "dapr.kafka.pubsub\dapr.kafka.pubsub.csproj", "{35C5F5CC-A4EC-40FF-9F42-3E4BFC250377}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "otel.web", "otel\otel.web\otel.web.csproj", "{ED1A6E42-DCBF-43E5-89B0-9F8812DD3498}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{3A2D3B74-5898-41F2-AC25-F5B65FC8C845}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.actor.server", "dapr\dapr.actor.server\dapr.actor.server.csproj", "{95860C4B-6E2A-4DD9-9DE2-9BB5A3D9FA56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.kafka.pubsub", "dapr\dapr.kafka.pubsub\dapr.kafka.pubsub.csproj", "{379A083E-3C3C-4752-8D52-6AC909E9C644}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,17 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC5DC977-598E-4519-A989-7972537961E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC5DC977-598E-4519-A989-7972537961E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC5DC977-598E-4519-A989-7972537961E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC5DC977-598E-4519-A989-7972537961E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35C5F5CC-A4EC-40FF-9F42-3E4BFC250377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35C5F5CC-A4EC-40FF-9F42-3E4BFC250377}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35C5F5CC-A4EC-40FF-9F42-3E4BFC250377}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35C5F5CC-A4EC-40FF-9F42-3E4BFC250377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1A6E42-DCBF-43E5-89B0-9F8812DD3498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1A6E42-DCBF-43E5-89B0-9F8812DD3498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1A6E42-DCBF-43E5-89B0-9F8812DD3498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1A6E42-DCBF-43E5-89B0-9F8812DD3498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95860C4B-6E2A-4DD9-9DE2-9BB5A3D9FA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95860C4B-6E2A-4DD9-9DE2-9BB5A3D9FA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95860C4B-6E2A-4DD9-9DE2-9BB5A3D9FA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95860C4B-6E2A-4DD9-9DE2-9BB5A3D9FA56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED1A6E42-DCBF-43E5-89B0-9F8812DD3498} = {17851C45-4E20-4E59-BB1C-C87061FD5053}
+		{95860C4B-6E2A-4DD9-9DE2-9BB5A3D9FA56} = {3A2D3B74-5898-41F2-AC25-F5B65FC8C845}
+		{379A083E-3C3C-4752-8D52-6AC909E9C644} = {3A2D3B74-5898-41F2-AC25-F5B65FC8C845}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C859C13E-E5A9-4946-88A3-8AEC990B3231}
