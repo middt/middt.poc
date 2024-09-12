@@ -5,3 +5,9 @@ Authorization: Basic cm9vdEByb290LmNvbTp1aFJVNUVjZ1dLZDZzZUtk
 Content-Length: 68
 
 [{"level":"info","job":"test","log":"test message for openobserve"}]
+###
+
+GET /execute?param=1 HTTP/1.1
+Host: localhost:4400
+x-instance-id: a7927cd1-45e6-4d3a-ac95-b69bfbb04693
+#
