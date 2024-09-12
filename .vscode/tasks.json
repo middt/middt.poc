@@ -84,7 +84,7 @@
         },
         {
             "appId": "dapr-otel-web",
-            "label": "dapr-down-dapr-otel-web",
+            "label": "dapr-down-otel-web",
             "type": "daprd-down"
         }
     ]

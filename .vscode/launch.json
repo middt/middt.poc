@@ -63,7 +63,7 @@
                 "DAPR_GRPC_PORT": "44011",
             },
             "preLaunchTask": "dapr-up-otel-web",
-            "postDebugTask": "dapr-down-otel-webb",
+            "postDebugTask": "dapr-down-otel-web",
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)",

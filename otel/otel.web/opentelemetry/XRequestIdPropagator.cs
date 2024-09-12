@@ -5,7 +5,7 @@ using OpenTelemetry.Trace;
 
 public class XRequestIdPropagator : TextMapPropagator
 {
-    private const string RequestIdHeader = "X-Request-Id";
+    private const string RequestIdHeader = "x-instance-id";
 
     public override ISet<string> Fields => new HashSet<string> { RequestIdHeader };
 
