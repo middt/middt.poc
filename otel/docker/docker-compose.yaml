@@ -8,3 +8,11 @@ services:
     environment:
       - ZO_ROOT_USER_EMAIL=root@root.com
       - ZO_ROOT_USER_PASSWORD=root
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 8081:80

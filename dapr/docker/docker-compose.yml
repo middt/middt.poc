@@ -60,14 +60,6 @@ services:
       KAFKA_CLUSTERS_0_AUDIT_TOPICAUDITENABLED: "true"
       KAFKA_CLUSTERS_0_AUDIT_CONSOLEAUDITENABLED: "true"
 
-  seq:
-    image: datalust/seq:latest
-    container_name: seq
-    environment:
-      - ACCEPT_EULA=Y
-    ports:
-      - 8081:80
-
 volumes:
   redis:
   redisinsight:
