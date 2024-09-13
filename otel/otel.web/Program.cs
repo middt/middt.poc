@@ -1,4 +1,3 @@
-
 using Dapr.Actors;
 using Dapr.Actors.Client;
 using Microsoft.AspNetCore.Mvc;
@@ -14,19 +13,19 @@ using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Instrumentation.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OpenTelemetry.Metrics;
+using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpClient();
 
 var serviceName = "otel_testOpenObserve";
 var serviceVersion = "1.0.0";
-var openObserveEndpoint = "http://localhost:5080"; // Update this to your OpenObserve endpoint
-var openObserveApiKey = "cm9vdEByb290LmNvbTp1aFJVNUVjZ1dLZDZzZUtk"; // Replace with your actual API key
+var openObserveEndpoint = "http://localhost:5080";
+var openObserveApiKey = "cm9vdEByb290LmNvbTp1aFJVNUVjZ1dLZDZzZUtk";
 
 // Configure OpenTelemetry
 builder.Services.AddOpenTelemetry()
@@ -34,6 +33,7 @@ builder.Services.AddOpenTelemetry()
     .WithTracing(tracing =>
     {
         tracing.AddAspNetCoreInstrumentation()
+               .AddHttpClientInstrumentation()
                .AddConsoleExporter()
                .AddOtlpExporter(opt =>
                {
@@ -45,8 +45,8 @@ builder.Services.AddOpenTelemetry()
     .WithMetrics(metrics =>
     {
         metrics.AddAspNetCoreInstrumentation()
-       .AddHttpClientInstrumentation()
-           .AddConsoleExporter()
+               .AddHttpClientInstrumentation()
+               .AddConsoleExporter()
                .AddOtlpExporter(opt =>
                {
                    opt.Endpoint = new Uri($"{openObserveEndpoint}/api/default/v1/metrics");
@@ -60,7 +60,7 @@ builder.Services.AddOpenTelemetry()
 builder.Logging.AddOpenTelemetry(options =>
 {
     options.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion))
-            .AddConsoleExporter()
+           .AddConsoleExporter()
            .AddOtlpExporter(opt =>
            {
                opt.Endpoint = new Uri($"{openObserveEndpoint}/api/default/v1/logs");
@@ -70,37 +70,11 @@ builder.Logging.AddOpenTelemetry(options =>
 });
 
 
-
-/*
-builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resource => resource.AddService(serviceName: builder.Environment.ApplicationName))
-    .WithTracing(tracing =>
-    {
-        tracing.AddSource("exampleActivitySource.Name");
-        tracing.AddAspNetCoreInstrumentation();
-        tracing.AddConsoleExporter();
-        tracing.SetPropagators(new CompositeTextMapPropagator(
-     new TextMapPropagator[]
-     {
-         new TraceContextPropagator(),
-         new BaggagePropagator(),
-         new B3Propagator(),
-         new XRequestIdPropagator()
-     }));
-        tracing.AddOtlpExporter(opt =>
-        {
-            opt.Endpoint = new Uri("http://localhost:8081/ingest/otlp/v1/traces");
-            opt.Protocol = OtlpExportProtocol.HttpProtobuf;
-            //opt.Headers = "X-Seq-ApiKey=abcde12345";
-        });
-    });
-*/
 Sdk.SetDefaultTextMapPropagator(new CompositeTextMapPropagator(
 new TextMapPropagator[]
 {
         new TraceContextPropagator(),
         new BaggagePropagator(),
-        new B3Propagator(),
         new XRequestIdPropagator()
 }));
 
@@ -108,7 +82,6 @@ new TextMapPropagator[]
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -117,17 +90,46 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/execute", async Task<IResult> (ILogger<Program> logger) =>
+app.MapGet("/execute", async Task<IResult> (
+    HttpContext httpContext, ILogger<Program> logger,
+    IHttpClientFactory httpClientFactory) =>
 {
     logger.LogInformation("This is a test info log from the /execute endpoint");
     logger.LogWarning("This is a test warning log from the /execute endpoint");
     logger.LogError("This is a test error log from the /execute endpoint");
 
-    // ... existing code ...
 
-    return Results.Ok("Logs generated successfully");
+    string xRequestId = httpContext.Request.Headers["x-request-id"];
+
+    var client = httpClientFactory.CreateClient();
+    client.DefaultRequestHeaders.Add("x-request-id", xRequestId);
+
+    var response = await client.GetAsync("http://localhost:9080/anything/browser");
+    var content = await response.Content.ReadAsStringAsync();
+
+
+    // client.DefaultRequestHeaders.Remove("x-request-id");
+    response = await client.GetAsync("https://reqres.in/api/users?page=1");
+    content = await response.Content.ReadAsStringAsync();
+
+
+    response = await client.GetAsync("http://localhost:4400/otherapi");
+    content = await response.Content.ReadAsStringAsync();
+
+    return Results.Ok($"Logs generated successfully. API call response: {content}");
 })
 .WithName("execute")
+.WithOpenApi();
+
+app.MapGet("/otherapi", async Task<IResult> (HttpContext httpContext, ILogger<Program> logger, IHttpClientFactory httpClientFactory) =>
+{
+    logger.LogInformation("This is a test info log from the /execute endpoint");
+    logger.LogWarning("This is a test warning log from the /execute endpoint");
+    logger.LogError("This is a test error log from the /execute endpoint");
+
+    return Results.Ok($"Logs generated successfully.");
+})
+.WithName("otherapi")
 .WithOpenApi();
 
 app.Run();

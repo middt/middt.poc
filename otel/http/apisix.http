@@ -1,0 +1,14 @@
+@x-request-id=a7927c-d145e64d-3aac95-b69bfbb-04612
+@apisix-url=localhost:9080
+
+###
+GET /anything/browser HTTP/1.1
+Host: {{apisix-url}}
+x-request-id: {{x-request-id}} 
+###
+
+###
+GET /execute HTTP/1.1
+Host: {{apisix-url}}
+x-request-id: {{x-request-id}}  
+###

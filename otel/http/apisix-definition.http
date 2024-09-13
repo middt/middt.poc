@@ -1,0 +1,91 @@
+@x-request-id=a7927cd145e64d3aac95b69bfbb04693
+@apisix-url=localhost:9080
+@apisix-admin-url=localhost:9180
+
+###
+GET /anything/browser HTTP/1.1
+Host: {{apisix-url}}
+# x-instance-id: a7927cd1-45e6-4d3a-ac95-b69bfbb04693
+x-request-id: {{x-request-id}} 
+###
+
+###
+GET /execute HTTP/1.1
+Host: {{apisix-url}}
+# x-instance-id: a7927cd1-45e6-4d3a-ac95-b69bfbb04693
+x-request-id: {{x-request-id}}  
+###
+
+PUT /apisix/admin/routes/10 HTTP/1.1
+Host: {{apisix-admin-url}}
+Content-Type: text/plain
+X-API-KEY: edd1c9f034335f136f87ad84b625c8f1
+
+{
+  "uri": "/anything/*",
+  "name": "anything",
+  "methods": [
+    "GET"
+  ],
+  "plugins": {
+    "opentelemetry": {
+      "sampler": {
+        "name": "always_on"
+      }
+    }
+  },
+  "upstream": {
+    "nodes": [
+      {
+        "host": "httpbin.org",
+        "port": 80,
+        "weight": 1
+      }
+    ],
+    "type": "roundrobin",
+    "hash_on": "vars",
+    "scheme": "http",
+    "pass_host": "pass"
+  },
+  "status": 1
+}
+
+###
+
+PUT /apisix/admin/routes/20 HTTP/1.1
+Host: {{apisix-admin-url}}
+Content-Type: text/plain
+X-API-KEY: edd1c9f034335f136f87ad84b625c8f1
+
+{
+  "uri": "/execute",
+  "name": "execute",
+  "methods": [
+    "GET"
+  ],
+  "plugins": {
+    "opentelemetry": {
+      "sampler": {
+        "name": "always_on"
+      }
+    },
+    "proxy-rewrite": {
+      "uri": "/execute"
+    }
+  },
+  "upstream": {
+    "nodes": [
+      {
+        "host": "host.docker.internal",
+        "port": 4400,
+        "weight": 1
+      }
+    ],
+    "type": "roundrobin",
+    "hash_on": "vars",
+    "scheme": "http",
+    "pass_host": "pass"
+  },
+  "status": 1
+}
+###
