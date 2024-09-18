@@ -27,6 +27,7 @@ var serviceVersion = "1.0.0";
 var openObserveEndpoint = "http://localhost:5080";
 var openObserveApiKey = "cm9vdEByb290LmNvbTp1aFJVNUVjZ1dLZDZzZUtk";
 
+
 // Configure OpenTelemetry
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(serviceName: serviceName, serviceVersion: serviceVersion))
@@ -40,6 +41,7 @@ builder.Services.AddOpenTelemetry()
                    opt.Endpoint = new Uri($"{openObserveEndpoint}/api/default/v1/traces");
                    opt.Headers = $"Authorization=Basic {openObserveApiKey}";
                    opt.Protocol = OtlpExportProtocol.HttpProtobuf;
+
                });
     })
     .WithMetrics(metrics =>
@@ -52,7 +54,6 @@ builder.Services.AddOpenTelemetry()
                    opt.Endpoint = new Uri($"{openObserveEndpoint}/api/default/v1/metrics");
                    opt.Headers = $"Authorization=Basic {openObserveApiKey}";
                    opt.Protocol = OtlpExportProtocol.HttpProtobuf;
-                   // ... same configuration as above ...
                });
     });
 
@@ -69,7 +70,7 @@ builder.Logging.AddOpenTelemetry(options =>
            });
 });
 
-
+/*
 Sdk.SetDefaultTextMapPropagator(new CompositeTextMapPropagator(
 new TextMapPropagator[]
 {
@@ -77,7 +78,7 @@ new TextMapPropagator[]
         new BaggagePropagator(),
         new XRequestIdPropagator()
 }));
-
+*/
 
 
 var app = builder.Build();
@@ -104,7 +105,7 @@ app.MapGet("/execute", async Task<IResult> (
     var client = httpClientFactory.CreateClient();
     client.DefaultRequestHeaders.Add("x-request-id", xRequestId);
 
-    var response = await client.GetAsync("http://localhost:9080/anything/browser");
+    var response = await client.GetAsync("http://localhost:9082/private/anything/test");
     var content = await response.Content.ReadAsStringAsync();
 
 
@@ -115,6 +116,10 @@ app.MapGet("/execute", async Task<IResult> (
 
     response = await client.GetAsync("http://localhost:4400/otherapi");
     content = await response.Content.ReadAsStringAsync();
+
+    response = await client.GetAsync("http://localhost:9082/private-local/otherapi");
+    content = await response.Content.ReadAsStringAsync();
+
 
     return Results.Ok($"Logs generated successfully. API call response: {content}");
 })
