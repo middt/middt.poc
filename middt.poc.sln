@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.actor.server", "dapr\d
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.kafka.pubsub", "dapr\dapr.kafka.pubsub\dapr.kafka.pubsub.csproj", "{379A083E-3C3C-4752-8D52-6AC909E9C644}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "httpclient.ui", "httpclient.ui\httpclient.ui.csproj", "{8982C113-820E-41E6-B670-87FBD827F003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{379A083E-3C3C-4752-8D52-6AC909E9C644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8982C113-820E-41E6-B670-87FBD827F003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8982C113-820E-41E6-B670-87FBD827F003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8982C113-820E-41E6-B670-87FBD827F003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8982C113-820E-41E6-B670-87FBD827F003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
