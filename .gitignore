@@ -63,3 +63,6 @@ _ReSharper*/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Dapr generated files
+.dapr/*

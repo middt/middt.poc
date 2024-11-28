@@ -1,91 +1,92 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build-dapr-actor-server",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/dapr/dapr.actor.server/dapr.actor.server.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "appId": "dapr-actor-server",
-            "appPort": 4200,
-            "httpPort": 42010,
-            "grpcPort": 42011,
-            "label": "dapr-up-dapr-actor-server",
-            "type": "dapr",
-            "dependsOn": "build-dapr-actor-server",
-            "componentsPath": "dapr/components"
-        },
-        {
-            "appId": "dapr-actor-server",
-            "label": "dapr-down-dapr-actor-server",
-            "type": "daprd-down"
-        },
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "run-dapr",
+			"type": "dapr",
+			"runFile": "./dapr.yaml"
+		},
+		{
+			"label": "build-dapr-actor-server",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/dapr/dapr.actor.server/dapr.actor.server.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"appId": "dapr-actor-server",
+			"appPort": 4200,
+			"httpPort": 42010,
+			"grpcPort": 42011,
+			"label": "dapr-up-dapr-actor-server",
+			"type": "dapr",
+			"dependsOn": "build-dapr-actor-server",
+			"componentsPath": "dapr/components"
+		},
+		{
+			"appId": "dapr-actor-server",
+			"label": "dapr-down-dapr-actor-server",
+			"type": "daprd-down"
+		},
 
-
-                {
-            "label": "build-dapr-kafka-pubsub",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/dapr/dapr.kafka.pubsub/dapr.kafka.pubsub.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "appId": "dapr-kafka-pubsub",
-            "appPort": 4300,
-            "httpPort": 43010,
-            "grpcPort": 43011,
-            "label": "dapr-up-dapr-kafka-pubsub",
-            "type": "dapr",
-            "dependsOn": "build-dapr-kafka-pubsub",
-            "componentsPath": "dapr/components"
-        },
-        {
-            "appId": "dapr-kafka-pubsub",
-            "label": "dapr-down-dapr-kafka-pubsub",
-            "type": "daprd-down"
-        }
-        ,
-
-
-                {
-            "label": "build-otel-web",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/otel/otel.web/otel.web.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "appId": "dapr-otel-web",
-            "appPort": 4400,
-            "httpPort": 44010,
-            "grpcPort": 44011,
-            "label": "dapr-up-otel-web",
-            "type": "dapr",
-            "dependsOn": "build-otel-web",
-            "componentsPath": "dapr/components"
-        },
-        {
-            "appId": "dapr-otel-web",
-            "label": "dapr-down-otel-web",
-            "type": "daprd-down"
-        }
-    ]
+		{
+			"label": "build-dapr-kafka-pubsub",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/dapr/dapr.kafka.pubsub/dapr.kafka.pubsub.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"appId": "dapr-kafka-pubsub",
+			"appPort": 4300,
+			"httpPort": 43010,
+			"grpcPort": 43011,
+			"label": "dapr-up-dapr-kafka-pubsub",
+			"type": "dapr",
+			"dependsOn": "build-dapr-kafka-pubsub",
+			"componentsPath": "./components"
+		},
+		{
+			"appId": "dapr-kafka-pubsub",
+			"label": "dapr-down-dapr-kafka-pubsub",
+			"type": "daprd-down"
+		},
+		{
+			"label": "build-otel-web",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/otel/otel.web/otel.web.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"appId": "dapr-otel-web",
+			"appPort": 4400,
+			"httpPort": 44010,
+			"grpcPort": 44011,
+			"label": "dapr-up-otel-web",
+			"type": "dapr",
+			"dependsOn": "build-otel-web",
+			"componentsPath": "dapr/components"
+		},
+		{
+			"appId": "dapr-otel-web",
+			"label": "dapr-down-otel-web",
+			"type": "daprd-down"
+		}
+	]
 }

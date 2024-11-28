@@ -1,4 +1,4 @@
-@dapr.actor.server_HostAddress = http://localhost:5096
+@dapr.actor.server_HostAddress = http://localhost:5220
 
 GET {{dapr.actor.server_HostAddress}}/weatherforecast/
 Accept: application/json

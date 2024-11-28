@@ -1,0 +1,33 @@
+version: 1
+common:
+  resourcesPath: ./components/
+  env:  # any environment variable shared across apps
+    DEBUG: true
+apps:
+  - appDirPath: ./dapr/dapr.actor.server
+    appPort: 5001
+    command: 
+    - dotnet
+    - run
+    #- --launch-profile
+    #- https
+    appID: "dapr-actor-server" 
+    env:  # Add environment variables specific to this app
+     BINDING_NAME: "local-kafka"
+     TOPIC_NAME: "topic1"
+     ASPNETCORE_HTTPS_PORT: 7001
+     
+  - appDirPath: ./dapr/dapr.kafka.pubsub
+    appPort: 5002
+    command: 
+    - dotnet
+    - run
+    #- --launch-profile
+    #- https
+    appID: "dapr-kafka-pubsub"
+    env:  # Add environment variables specific to this app
+     BINDING_NAME: "local-kafka"
+     TOPIC_NAME: "topic1"
+     ASPNETCORE_HTTPS_PORT: 7002
+      
+    
