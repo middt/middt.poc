@@ -87,6 +87,33 @@
 			"appId": "dapr-otel-web",
 			"label": "dapr-down-otel-web",
 			"type": "daprd-down"
+		},
+		{
+			"label": "build-httpclient-ui",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/httpclient.ui/httpclient.ui.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"appId": "httpclient-ui",
+			"appPort": 4500,
+			"httpPort": 45010,
+			"grpcPort": 45011,
+			"label": "dapr-up-httpclient-ui",
+			"type": "dapr",
+			"dependsOn": "build-httpclient-ui",
+			"componentsPath": "./components"
+		},
+		{
+			"appId": "httpclient-ui",
+			"label": "dapr-down-httpclient-ui",
+			"type": "daprd-down"
 		}
 	]
 }

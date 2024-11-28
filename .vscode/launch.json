@@ -76,6 +76,28 @@
 				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
 				"uriFormat": "%s/swagger/"
 			}
+		},
+		{
+			"name": "httpclient-ui",
+			"type": "coreclr",
+			"request": "launch",
+			"program": "${workspaceFolder}/httpclient.ui/bin/Debug/net8.0/httpclient.ui.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/httpclient.ui",
+			"stopAtEntry": false,
+			"env": {
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"ASPNETCORE_URLS": "http://localhost:4500",
+				"DAPR_HTTP_PORT": "45010",
+				"DAPR_GRPC_PORT": "45011"
+			},
+			"preLaunchTask": "dapr-up-httpclient-ui",
+			"postDebugTask": "dapr-down-httpclient-ui",
+			"serverReadyAction": {
+				"action": "openExternally",
+				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+				"uriFormat": "%s/swagger/"
+			}
 		}
 	],
 	"compounds": [
