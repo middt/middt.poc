@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using dapr.actor.server.actors;
 using Dapr.Actors;
 using Dapr.Actors.Client;
@@ -17,6 +18,10 @@ builder.Services.AddActors(options =>
 
 var app = builder.Build();
 
+#if DEBUG
+    Debugger.Launch();
+#endif
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -24,35 +29,28 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.MapActorsHandlers();
-
 
 // app.MapPost("/TransferMoney", async Task<IResult> ([FromBody] TransferRequest request) =>
 app.MapPost("/TransferMoney", async Task<IResult> () =>
 {
-    var deleteActorID = new ActorId("ToAccountId");
-    var deleteActor = ActorProxy.Create<IBankAccountActor>(deleteActorID, "BankAccountActor");
+    var request = new TransferRequest() { Amount = 1, FromAccountId = "FromAccountId", ToAccountId = "ToAccountId" };
+
+    var fromAccountActorId = new ActorId(request.FromAccountId);
+    var fromAccountActor = ActorProxy.Create<IBankAccountActor>(fromAccountActorId, "BankAccountActor");
+    await fromAccountActor.DepositAsync(10000000);
+
+    // Parallel.For(1, 100, parallelOptions: new ParallelOptions() { MaxDegreeOfParallelism = 10 }, async index =>
+    // {
+
+    var toAccountActorId = new ActorId(request.ToAccountId);
+    var toAccountActor = ActorProxy.Create<IBankAccountActor>(toAccountActorId, "BankAccountActor");
+
+    // Withdraw from the source account
+    await fromAccountActor.WithdrawAsync(request.Amount);
+
     // Deposit into the destination account
-    await deleteActor.DepositAsync(10000000);
-    var balance = await deleteActor.GetBalanceAsync();
-    Parallel.For(1, 100, parallelOptions: new ParallelOptions() { MaxDegreeOfParallelism = 10 }, async index =>
-    {
-        var request = new TransferRequest() { Amount = 1, FromAccountId = "FromAccountId", ToAccountId = "ToAccountId" };
-
-        var fromAccountActorId = new ActorId(request.FromAccountId);
-        var toAccountActorId = new ActorId(request.ToAccountId);
-
-        var fromAccountActor = ActorProxy.Create<IBankAccountActor>(fromAccountActorId, "BankAccountActor");
-        var toAccountActor = ActorProxy.Create<IBankAccountActor>(toAccountActorId, "BankAccountActor");
-
-        // Withdraw from the source account
-        await fromAccountActor.WithdrawAsync(request.Amount);
-
-        // Deposit into the destination account
-        await toAccountActor.DepositAsync(request.Amount);
-    });
-    balance = await deleteActor.GetBalanceAsync();
+    await toAccountActor.DepositAsync(request.Amount);
+    //});
     return Results.Ok("Transfer completed successfully");
 })
 .WithName("TransferMoney")

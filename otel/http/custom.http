@@ -11,3 +11,32 @@ GET /execute?param=1 HTTP/1.1
 Host: localhost:4400
 x-instance-id: a7927cd1-45e6-4d3a-ac95-b69bfbb04693
 ###
+
+
+openid-connect->
+      "introspection_addon_headers": [
+        "user_reference",
+        "X-Subject",
+        "X-Device-Id",
+        "X-Token-Id",
+        "X-Customer",
+        "X-Workflow-Name",
+        "X-Instance-Id",
+        "X-Request-Id",
+        "x-installation-id",
+        "traceparent"
+      ]
+
+opentelemetry->
+      "additional_attributes": [
+        "http_user_reference",
+        "http_X-Subject",
+        "http_X-Device-Id",
+        "http_X-Token-Id",
+        "http_X-Customer",
+        "http_X-Workflow-Name",
+        "http_X-Instance-Id",
+        "http_X-Request-Id",
+        "http_x-installation-id",
+        "http_traceparent"
+      ]

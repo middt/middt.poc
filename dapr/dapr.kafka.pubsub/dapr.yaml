@@ -1,0 +1,16 @@
+version: 1
+common:
+  logLevel: debug
+apps:
+  - appID: dapr-kafka-pubsub
+    appDirPath: .
+    appPort: 4300
+    daprHTTPPort: 43010
+    daprGRPCPort: 43011
+    resourcesPath: ./components
+    command: ["dotnet", "watch", "run"]
+    env:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://localhost:4300
+      BINDING_NAME: local-kafka
+      TOPIC_NAME: topic1

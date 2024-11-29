@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/distributed-cache.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/distributed-cache.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/distributed-cache.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "docker-compose-up",
+            "type": "shell",
+            "command": "docker-compose up -d --build",
+            "problemMatcher": []
+        },
+        {
+            "label": "docker-compose-down",
+            "type": "shell",
+            "command": "docker-compose down",
+            "problemMatcher": []
+        }
+    ]
+}

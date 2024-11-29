@@ -27,11 +27,12 @@ builder.Services.AddSingleton<IMessageDeserializationService, MessageDeserializa
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 app.MapActorsHandlers();

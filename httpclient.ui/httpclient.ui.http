@@ -1,0 +1,6 @@
+@httpclient.ui_HostAddress = http://localhost:5244
+
+GET {{httpclient.ui_HostAddress}}/make-http-call/
+Accept: application/json
+
+###

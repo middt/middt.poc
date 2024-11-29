@@ -1,0 +1,14 @@
+version: 1
+common:
+  logLevel: debug
+apps:
+  - appID: dapr-actor-server
+    appDirPath: .
+    appPort: 4200
+    daprHTTPPort: 42010
+    daprGRPCPort: 42011
+    resourcesPath: ./components
+    command: ["dotnet", "watch", "run"]
+    env:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://localhost:4200
