@@ -1,0 +1,34 @@
+@host = http://localhost:5000
+
+### Test Root Endpoint
+GET {{host}}/
+Accept: application/json
+
+### Get Weather Forecast
+GET {{host}}/weatherforecast
+Accept: application/json
+
+### Get Item by ID
+GET {{host}}/items/123
+Accept: application/json
+
+### Create New Item
+POST {{host}}/items
+Content-Type: application/json
+
+{
+    "id": "456",
+    "name": "Test Item"
+}
+
+### Test APM Integration
+GET {{host}}/test-apm
+Accept: application/json
+
+### Test OpenTelemetry Integration
+GET {{host}}/test-telemetry
+Accept: application/json
+
+### Health Check
+GET {{host}}/health
+Accept: application/json

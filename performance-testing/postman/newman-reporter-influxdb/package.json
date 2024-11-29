@@ -1,0 +1,22 @@
+{
+  "name": "newman-reporter-influxdb",
+  "version": "1.0.0",
+  "description": "Custom InfluxDB reporter for Newman",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "newman",
+    "reporter",
+    "influxdb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "influx": "^5.9.3"
+  },
+  "newman": {
+    "name": "influxdb"
+  }
+} 
