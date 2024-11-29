@@ -1,0 +1,59 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/net8.0/distributed-cache.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Launch with Docker",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "docker-compose-up",
+            "postDebugTask": "docker-compose-down",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": ".NET Core Watch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "watch"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug with Redis",
+            "configurations": [
+                ".NET Core Launch (web)"
+            ],
+            "preLaunchTask": "docker-compose-up",
+            "postDebugTask": "docker-compose-down"
+        }
+    ]
+}

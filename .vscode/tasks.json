@@ -2,9 +2,9 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "run-dapr",
+			"label": "run-dapr-actor-server",
 			"type": "dapr",
-			"runFile": "./dapr.yaml"
+			"runFile": "./dapr/dapr.actor.server/dapr.yaml"
 		},
 		{
 			"label": "build-dapr-actor-server",
@@ -16,7 +16,11 @@
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
-			"problemMatcher": "$msCompile"
+			"problemMatcher": "$msCompile",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		},
 		{
 			"appId": "dapr-actor-server",
@@ -25,8 +29,7 @@
 			"grpcPort": 42011,
 			"label": "dapr-up-dapr-actor-server",
 			"type": "dapr",
-			"dependsOn": "build-dapr-actor-server",
-			"componentsPath": "dapr/components"
+			"componentsPath": "/Users/mt/Projects/dapr.actor/dapr/dapr.actor.server/components"
 		},
 		{
 			"appId": "dapr-actor-server",
@@ -44,7 +47,8 @@
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
-			"problemMatcher": "$msCompile"
+			"problemMatcher": "$msCompile",
+			"group": "build"
 		},
 		{
 			"appId": "dapr-kafka-pubsub",
@@ -53,8 +57,7 @@
 			"grpcPort": 43011,
 			"label": "dapr-up-dapr-kafka-pubsub",
 			"type": "dapr",
-			"dependsOn": "build-dapr-kafka-pubsub",
-			"componentsPath": "./components"
+			"componentsPath": "/Users/mt/Projects/dapr.actor/dapr/dapr.kafka.pubsub/components"
 		},
 		{
 			"appId": "dapr-kafka-pubsub",
